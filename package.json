@@ -1,0 +1,24 @@
+{
+  "name": "tampermonkey-scriptps",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Main.js",
+  "dependencies": {
+    "xlsx": "^0.15.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"echo ${1} && tsc $1'.ts' && node $1'.js'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeasonchan/tampermonkey-scriptps.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeasonchan/tampermonkey-scriptps/issues"
+  },
+  "homepage": "https://github.com/jeasonchan/tampermonkey-scriptps#readme"
+}
