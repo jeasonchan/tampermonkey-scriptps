@@ -19,3 +19,7 @@ for (let i: number = 0; i < sheetList.length; i++) {
 }
 
 // https://www.jianshu.com/p/7d2e584cbcc1
+
+
+var hahah = {};
+(hahah as any).name = "123";

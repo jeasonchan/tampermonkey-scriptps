@@ -27,7 +27,7 @@ function fetch0(url: string | {}, config?: {}): {} {
 // 赋值给 FetchInstance 类型的变量无压力
 const fetch1: FetchInstance = fetch0;
 
-var test_var:FetchInstance={};//接口规定了函数的输入和方法两个方面；
+var test_var: FetchInstance = {};//接口规定了函数的输入和方法两个方面；
 //其实应该赋值一个函数对象，输入和输出都和接口里定义的相同才行
 
 //类型和FetchInstance不符合
@@ -46,3 +46,30 @@ class Test implements Operate {
     }
 
 }
+
+
+//===========typescript动态添加属性
+class Session {
+
+}
+interface IUser {
+    name: string;
+    password: string;
+    url: string;
+}
+var session = new Session();
+var user = (session as IUser);
+user.name = "Tokyo-hot";
+user.password = "None";
+user.url = "magnet:?xt=urn:btih:ff671a45cbd3688bc06a15958be292cb649c3b4e";
+
+//忙的时候就使用万能的any;
+//session.haha=123;   //报错，session上不存在属性haha
+(session as any).name = 'papapapa';
+
+//另一种优雅的解决方法
+interface LooseObject {
+    [key: string]: any
+}
+
+var obj: LooseObject = {};

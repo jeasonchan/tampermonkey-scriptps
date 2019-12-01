@@ -15,3 +15,4 @@ for (var i = 0; i < sheetList.length; i++) {
     // console.log(Xlsx.utils.sheet_to_json(sheetObject));
 }
 // https://www.jianshu.com/p/7d2e584cbcc1
+console.log(typeof {});
