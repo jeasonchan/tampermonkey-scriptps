@@ -16,6 +16,6 @@ console.log(txt.charAt(1));
 var newTxt: string = txt.concat("——" + txt2);
 console.log(newTxt);
 
-var str = "Apples are round, and apples are juicy."; 
-var splitted = str.split(" ", 0); 
+var str = "Apples are round, and apples are juicy.";
+var splitted = str.split(" ", 0);
 console.log(splitted)  // [ 'Apples', 'are', 'round,' ]
