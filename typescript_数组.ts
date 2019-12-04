@@ -47,3 +47,31 @@ var ouuputResult: any =
     }
     );
 console.log(ouuputResult);
+
+/*
+PS C:\CRroot\documents\codeproject\tampermonkey-scriptps> tsc .\typescript_数组.ts;node .\typescript_数组.js
+[ '1', '', 'true' ]
+[ '', 'true' ]
+0
+1
+2
+3
+4
+[ 1, 2, 3, 4, 5, 1, 2, 2, 3, 'string' ]
+now is checking 1 and result is true
+now is checking 2 and result is true
+now is checking 3 and result is true
+now is checking 4 and result is false
+第0个元素是1
+第1个元素是2
+第2个元素是3
+第3个元素是4
+第4个元素是5
+1**2**2**3**string
+[ 3, 5, 7, 9, 11 ]
+1+2=3
+3+3=6
+6+4=10
+10+5=15
+15
+*/
