@@ -4,6 +4,9 @@
   "description": "",
   "main": "Main.js",
   "dependencies": {
+    "@types/express": "^4.17.2",
+    "epress": "0.0.1-security",
+    "express": "^4.17.1",
     "xlsx": "^0.15.2"
   },
   "devDependencies": {},
