@@ -11,8 +11,7 @@
 // ==/UserScript==
 
 //本地编码时使用
-
-
+import XLSX from "xlsx";
 
 'use strict';
 // Your code here...油猴脚本，感觉就是的代替我们的在console进行了如下的js代码输入
@@ -37,8 +36,19 @@ $(document).ready(function () {
 
     //======================funciton define start=======================
     function printEachProperity() {
-        
-        alert($("#excel_file").value);
+        // https://blog.csdn.net/sinat_19569023/article/details/78337553 jquery 获取input数据
+        // https://www.cnblogs.com/imwtr/p/6001480.html
+
+        var files = $("#excel_file").prop('files')
+        var file = XLSX.readFile($("#excel_file").files[0]);
+        console.log(file.SheetNames);
+
+        //DOM原生方法，已经可行
+        var selectedFile = document.getElementById('excel_file').files[0];
+        var name = selectedFile.name;//读取选中文件的文件名
+        var size = selectedFile.size;//读取选中文件的大小
+        console.log("文件名:" + name + "大小:" + size);
+
     }
 
 
