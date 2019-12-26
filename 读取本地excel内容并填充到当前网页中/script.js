@@ -11,55 +11,34 @@
 // ==/UserScript==
 
 //本地编码时使用
-// const xlsx = require('xlsx');
 
 
 
 'use strict';
-// Your code here...
+// Your code here...油猴脚本，感觉就是的代替我们的在console进行了如下的js代码输入
 
 //完全使用jquery操作，因此，函数体内中涉及元素操作的函数都要定义在ready函数内部，应该是油猴的特殊性
 $(document).ready(function () {
-    $('body').prepend('<input type="file" style="display:None" id="excel_file">');
-    $('body').prepend('<button type="button" id="open_excel_button">选择Excel</button>');
+    $('body').prepend('<input type="file" id="excel_file">');
+    $('body').prepend('<button type="button" id="parser_and_input_button">解析并填充</button>');
 
     //不能直接在标签内给标签的 onclick 属性赋值自己定义的函数，会报找不到的赋值的函数名错误
     //建议一整套搜使用jquery的操作，直接jquery的selector和action进行操作，如下：
-    $("#open_excel_button").on("click", parseFile);
+    // $("#open_excel_button").on("click", parseFile);
 
 
-    $('body').prepend('<button type="button"  id="excel_file_2">button2</button>');
-    $("#excel_file_2").click(() => { $("#excel_file_2").hide() });  //已经明确某具体元素时，就不可以用this了
+    // $('body').prepend('<button type="button"  id="excel_file_2">button2</button>');
+    // $("#excel_file_2").click(() => { $("#excel_file_2").hide() });  //已经明确某具体元素时，就不可以用this了
 
-    $("input").hover(() => { alert("别想输入东西！") });
-
-
+    // $("input").hover(() => { alert("别想输入东西！") });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    $("#parser_and_input_button").click(printEachProperity)
 
     //======================funciton define start=======================
-    function printEachProperity(object, properity) {
-        alert(properity);
+    function printEachProperity() {
+        
+        alert($("#excel_file").value);
     }
 
 
@@ -84,9 +63,5 @@ $(document).ready(function () {
         alert("WORKS");
     }
     //======================funciton define end=======================
-
-
-
-
 
 });
