@@ -25,53 +25,82 @@ $(document).ready(function () {
     //建议一整套搜使用jquery的操作，直接jquery的selector和action进行操作，如下：
     // $("#open_excel_button").on("click", parseFile);
 
-
     // $('body').prepend('<button type="button"  id="excel_file_2">button2</button>');
     // $("#excel_file_2").click(() => { $("#excel_file_2").hide() });  //已经明确某具体元素时，就不可以用this了
 
     // $("input").hover(() => { alert("别想输入东西！") });
 
 
-    $("#parser_and_input_button").click(printEachProperity)
+    $("#excel_file").on("change", parseAndInput);
 
     //======================funciton define start=======================
+    function parseAndInput(event) {
+        var files = event.target.files;
+
+        var fileReader = new FileReader();
+
+        //和所有面向对象一样，js实例方法的第一个入参也是 this 对象，实际入参只需要一个入参：
+        //输入为 ProgressEvent<FileReader> 类型 输出为void 的  函数对象
+        function onload(ev) {
+            try {
+                var data = ev.target.result;
+                
+                var workbook = XLSX.read(data, { type: 'binary' }); // 以二进制流方式读取得到整份excel表格对象
+                console.log(workbook.SheetNames)
+            } catch (e) {
+                console.log(e);
+                return;
+            }
+
+        }
+        //将自己定义好的行为赋予给 fileReader 实例
+        fileReader.onload = onload;
+
+        // 以二进制方式打开文件
+        fileReader.readAsBinaryString(files[0]);
+
+    }
+
+
+
     function printEachProperity() {
         // https://blog.csdn.net/sinat_19569023/article/details/78337553 jquery 获取input数据
         // https://www.cnblogs.com/imwtr/p/6001480.html
 
-        var files = $("#excel_file").prop('files')
-        var file = XLSX.readFile($("#excel_file").files[0]);
-        console.log(file.SheetNames);
+        // var files = $("#excel_file").prop('files')
+        // var file = XLSX.readFile($("#excel_file").files[0]);
+        // console.log(file.SheetNames);
 
-        //DOM原生方法，已经可行
-        var selectedFile = document.getElementById('excel_file').files[0];
-        var name = selectedFile.name;//读取选中文件的文件名
-        var size = selectedFile.size;//读取选中文件的大小
-        console.log("文件名:" + name + "大小:" + size);
+        // //DOM原生方法，已经可行
+        // var selectedFile = document.getElementById('excel_file').files[0];
+        // var name = selectedFile.name;//读取选中文件的文件名
+        // var size = selectedFile.size;//读取选中文件的大小
+        // console.log("文件名:" + name);
+
 
     }
 
 
-    function parseFile() {
-        // $("#excel_file").click();  //在ready函数外面不能使用，只能通过原始的文档树进行操作
-        document.getElementById('excel_file').click();
+    // function parseFile() {
+    //     // $("#excel_file").click();  //在ready函数外面不能使用，只能通过原始的文档树进行操作
+    //     document.getElementById('excel_file').click();
 
-        var files = document.getElementById("excel_file").prop("files");
-        console.log(files)
-        // var files = $("#excel_file").prop('files');//获取到文件列表
-        var reader = new FileReader();//新建一个FileReader
-        reader.onload = function (evt) { //读取完文件之后会回来这里
-            console.log("hhh");
-            var fileString = evt.target.result;
-            console.log(a);
-        }
+    //     var files = document.getElementById("excel_file").prop("files");
+    //     console.log(files)
+    //     // var files = $("#excel_file").prop('files');//获取到文件列表
+    //     var reader = new FileReader();//新建一个FileReader
+    //     reader.onload = function (evt) { //读取完文件之后会回来这里
+    //         console.log("hhh");
+    //         var fileString = evt.target.result;
+    //         console.log(a);
+    //     }
 
-    }
+    // }
 
 
-    function printAlert() {
-        alert("WORKS");
-    }
+    // function printAlert() {
+    //     alert("WORKS");
+    // }
     //======================funciton define end=======================
 
 });
