@@ -7,10 +7,11 @@
 // @match        https://www.baidu.com/s?wd=js+xlsx&ie=UTF-8
 // @grant        none
 // @require https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js
-// @require https://cdn.bootcss.com/xlsx/0.15.1/xlsx.min.js
+// @require https://cdn.bootcss.com/xlsx/0.15.1/xlsx.core.min.js
 // ==/UserScript==
 
-//本地编码时使用
+//本地编码时使用，此处使用了ES6标准的import，等价于const XLSX=require("xlsx")，
+//前提是xlsx有default export 或者 使用了commonjs的导出风格
 import XLSX from "xlsx";
 
 'use strict';
@@ -35,18 +36,24 @@ $(document).ready(function () {
 
     //======================funciton define start=======================
     function parseAndInput(event) {
-        var files = event.target.files;
+        console.log(event)
+
+        var fileList = event.target.files;
 
         var fileReader = new FileReader();
 
         //和所有面向对象一样，js实例方法的第一个入参也是 this 对象，实际入参只需要一个入参：
         //输入为 ProgressEvent<FileReader> 类型 输出为void 的  函数对象
         function onload(ev) {
+            console.log(ev)
             try {
                 var data = ev.target.result;
+
+                var excelFile = XLSX.read(data, { type: 'binary' }); // 以二进制流方式读取得到整份excel表格对象
                 
-                var workbook = XLSX.read(data, { type: 'binary' }); // 以二进制流方式读取得到整份excel表格对象
-                console.log(workbook.SheetNames)
+                console.log(excelFile);
+
+                console.log(excelFile.SheetNames)
             } catch (e) {
                 console.log(e);
                 return;
@@ -57,7 +64,7 @@ $(document).ready(function () {
         fileReader.onload = onload;
 
         // 以二进制方式打开文件
-        fileReader.readAsBinaryString(files[0]);
+        fileReader.readAsBinaryString(fileList[0]);
 
     }
 
