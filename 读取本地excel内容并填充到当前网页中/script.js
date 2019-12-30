@@ -12,7 +12,7 @@
 
 //本地编码时使用，此处使用了ES6标准的import，等价于const XLSX=require("xlsx")，
 //前提是xlsx必须有default export 或者 使用了commonjs的导出风格
-import XLSX from "xlsx";
+import XLSX, { write } from "xlsx";
 
 'use strict';
 // Your code here...油猴脚本，感觉就是的代替我们的在console进行了如下的js代码输入
@@ -35,7 +35,8 @@ $(document).ready(function () {
 
     $("#excel_file").on("change", parseAndStoreToExcelFile);
 
-    $("#parser_and_input_button").on("click", get_specific_cell_content);
+
+    $("#parser_and_input_button").on("click", hahaha);
 
     //======================funciton define start=======================
     function parseAndStoreToExcelFile(event) {
@@ -75,12 +76,21 @@ $(document).ready(function () {
 
     }
 
-    function get_specific_cell_content() {
-        console.log(excelFile);
+
+    function hahaha() {
+        write_cell_content_into_element(get_specific_cell_content());
     }
 
-    function write_cell_content_into_element() {
 
+    function get_specific_cell_content() {
+        console.log(excelFile);
+        var sheetNameArray = excelFile.SheetNames;
+        var sheet_1 = excelFile["Sheets"][sheetNameArray[0]];
+        return sheet_1["B5"]["v"];
+    }
+
+    function write_cell_content_into_element(input) {
+        console.log(input)
     }
 
 
