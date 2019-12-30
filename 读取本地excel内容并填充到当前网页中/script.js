@@ -90,7 +90,9 @@ $(document).ready(function () {
     }
 
     function write_cell_content_into_element(input) {
-        console.log(input)
+        console.log(input);
+        $("#kw").val(input);
+
     }
 
 
