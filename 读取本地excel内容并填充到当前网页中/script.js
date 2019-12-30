@@ -11,7 +11,7 @@
 // ==/UserScript==
 
 //本地编码时使用，此处使用了ES6标准的import，等价于const XLSX=require("xlsx")，
-//前提是xlsx有default export 或者 使用了commonjs的导出风格
+//前提是xlsx必须有default export 或者 使用了commonjs的导出风格
 import XLSX from "xlsx";
 
 'use strict';
@@ -20,7 +20,7 @@ import XLSX from "xlsx";
 //完全使用jquery操作，因此，函数体内中涉及元素操作的函数都要定义在ready函数内部，应该是油猴的特殊性
 $(document).ready(function () {
     $('body').prepend('<input type="file" id="excel_file">');
-    $('body').prepend('<button type="button" id="parser_and_input_button">解析并填充</button>');
+    $('body').prepend('<button type="button" id="parser_and_input_button">填充</button>');
 
     //不能直接在标签内给标签的 onclick 属性赋值自己定义的函数，会报找不到的赋值的函数名错误
     //建议一整套搜使用jquery的操作，直接jquery的selector和action进行操作，如下：
@@ -30,17 +30,20 @@ $(document).ready(function () {
     // $("#excel_file_2").click(() => { $("#excel_file_2").hide() });  //已经明确某具体元素时，就不可以用this了
 
     // $("input").hover(() => { alert("别想输入东西！") });
+    var excelFile;
 
+    $("#excel_file").on("change", parseAndStoreToExcelFile);
 
-    $("#excel_file").on("change", parseAndInput);
+    $("#parser_and_input_button").on("click", () => { console.log(excelFile.SheetNames) });
 
     //======================funciton define start=======================
-    function parseAndInput(event) {
-        console.log(event)
+    function parseAndStoreToExcelFile(event) {
+        // console.log(event)
 
         var fileList = event.target.files;
 
         var fileReader = new FileReader();
+        // console.log(fileReader);
 
         //和所有面向对象一样，js实例方法的第一个入参也是 this 对象，实际入参只需要一个入参：
         //输入为 ProgressEvent<FileReader> 类型 输出为void 的  函数对象
@@ -49,23 +52,35 @@ $(document).ready(function () {
             try {
                 var data = ev.target.result;
 
-                var excelFile = XLSX.read(data, { type: 'binary' }); // 以二进制流方式读取得到整份excel表格对象
-                
-                console.log(excelFile);
 
-                console.log(excelFile.SheetNames)
+                excelFile = XLSX.read(data, { type: 'binary' }); // 以二进制流方式读取得到整份excel表格对象
+
+                // console.log(excelFile);
+
+                // console.log(excelFile.SheetNames)
             } catch (e) {
                 console.log(e);
                 return;
             }
 
         }
+
         //将自己定义好的行为赋予给 fileReader 实例
         fileReader.onload = onload;
 
-        // 以二进制方式打开文件
+        // 以二进制方式打开文件，文件完全加载完毕(onload)之后，调用fileReader.onload
+        // 典型的异步回调
         fileReader.readAsBinaryString(fileList[0]);
+        // console.log(fileReader);
 
+    }
+
+    function get_specific_cell_content(){
+
+    }
+
+    function write_cell_content_into_element(){
+        
     }
 
 
