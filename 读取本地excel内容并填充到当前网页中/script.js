@@ -32,9 +32,10 @@ $(document).ready(function () {
     // $("input").hover(() => { alert("别想输入东西！") });
     var excelFile;
 
+
     $("#excel_file").on("change", parseAndStoreToExcelFile);
 
-    $("#parser_and_input_button").on("click", () => { console.log(excelFile.SheetNames) });
+    $("#parser_and_input_button").on("click", get_specific_cell_content);
 
     //======================funciton define start=======================
     function parseAndStoreToExcelFile(event) {
@@ -57,7 +58,6 @@ $(document).ready(function () {
 
                 // console.log(excelFile);
 
-                // console.log(excelFile.SheetNames)
             } catch (e) {
                 console.log(e);
                 return;
@@ -75,12 +75,12 @@ $(document).ready(function () {
 
     }
 
-    function get_specific_cell_content(){
-
+    function get_specific_cell_content() {
+        console.log(excelFile);
     }
 
-    function write_cell_content_into_element(){
-        
+    function write_cell_content_into_element() {
+
     }
 
 
